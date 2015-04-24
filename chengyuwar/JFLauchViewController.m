@@ -14,7 +14,6 @@
 #import "JFNormalAnswerViewController.h"
 #import "JFPhaseXmlData.h"
 #import "DownloadHttpInfo.h"
-#import "JFYouMIManger.h"
 #import "iToast.h"
 #import "ZipArchive.h"
 
@@ -448,7 +447,7 @@
         [av release];
         return;
     }
-
+/*
     
     if ([[JFLocalPlayer shareInstance] roleModel]  && [[[JFLocalPlayer shareInstance] roleModel] roleType] != 0)
     {
@@ -466,7 +465,7 @@
         [createView release];
     }
     
-    
+    */
     DLOG(@"clickRaceBtn:%@",sender);
 }
 
@@ -758,7 +757,7 @@
     
 
     [[JFAppSet shareInstance] setCurreninterface:UIInterfaceOrientationMaskAllButUpsideDown];
-    [self presentModalViewController:control animated:YES];
+    [self presentViewController:control animated:YES completion:^{}];
     
     m_bIsShowGClogin = YES;
 }
@@ -770,7 +769,7 @@
     [JFPlayAniManger addGoldWithAni:rewardnumber];
     [JFLocalPlayer addgoldNumber:rewardnumber];
     [JFLocalPlayer storeConLoginDays:[sender getConLoginDays]];
-    [m_lanchReq sendDailySignedReq:[[[JFLocalPlayer shareInstance] userID] intValue]];
+    //  [m_lanchReq sendDailySignedReq:[[[JFLocalPlayer shareInstance] userID] intValue]];
     
 }
 
@@ -778,9 +777,7 @@
 #pragma mark    JFCreateRoleViewDelegate
 -(void)userHasCreateRole:(id)Thread
 {
-    JFRaceHallViewController   *controller = [[JFRaceHallViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-    [controller release];
+    
 }
 
 -(void)userCancelCreateRole:(id)Thread
@@ -827,9 +824,9 @@
 }
 
 #pragma mark    JFLanchRequestDelegate
--(void)getCommoninfo:(eSDStatus)status lanchModel:(JFLanchModel*)Tempmodel
+-(void)getCommoninfo:(int)status lanchModel:(JFLanchModel*)Tempmodel
 {
-    if (status == eSDS_Ok)
+    if (status == 1)
     {
         self.model = Tempmodel;
         
@@ -870,9 +867,9 @@
     
     
 }
--(void)getDailySignResult:(eSDStatus)status
+-(void)getDailySignResult:(int)status
 {
-    if (status != eSDS_Ok)
+    if (status != 1)
     {
         DLOG(@"getDailySignResult fail:%@",[[JFLocalPlayer shareInstance] userID]);
        // [m_lanchReq sendDailySignedReq:[[[JFLocalPlayer shareInstance] userID] intValue]];
@@ -880,10 +877,10 @@
     
 }
 
--(void)getUserIDResult:(eSDStatus)status dicInfo:(NSDictionary*)dicInfo
+-(void)getUserIDResult:(int)status dicInfo:(NSDictionary*)dicInfo
 {
     //   return;
-    if (status == eSDS_Ok)
+    if (status == 1)
     {
         m_bhasgetUserID = YES;
         JFLocalPlayer   *playEr = [JFLocalPlayer shareInstance];
@@ -1153,7 +1150,7 @@
                 ididomModel.isUnlocked = NO;
                 ididomModel.idiomlevelString = [NSString stringWithFormat:@"%d",level];
                 [JFSQLManger insertIdiomTotable:ididomModel type:JFIdiomTypeNormal];
-                
+                DLOG(@"++++++++++++write path:%@",idiomShouz.idiomImageName);
                 if (level == 1)
                 {
                     [JFSQLManger setLevelUnlocked:1];
@@ -1275,7 +1272,7 @@
 
 
 #pragma mark  JfchargeNetdelegate
--(void)getServerRemainChargeFail:(eSDStatus)status
+-(void)getServerRemainChargeFail:(int)status
 {
     
 }

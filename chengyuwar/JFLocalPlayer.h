@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "JFGameCenterManger.h"
-#import "JFRoleModel.h"
 #import "JFLanchModel.h"
 #import "JFPlayAniManger.h"
 @interface JFLocalPlayer : NSObject<NSCoding>
@@ -26,7 +25,6 @@
 @property(nonatomic)int   score;
 @property(nonatomic)int   lastLevel;
 @property(nonatomic,copy)NSString       *nickName;
-@property(nonatomic,retain)JFRoleModel  *roleModel;
 @property(nonatomic)BOOL  isPayedUser;
 @property(nonatomic,retain)JFLanchModel *lanchModel;
 @property(nonatomic)int    currentMaxWinCount;

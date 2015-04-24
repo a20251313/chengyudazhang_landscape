@@ -63,12 +63,11 @@ CTTextAlignment CTTextAlignmentFromUITextAlignment(NSTextAlignment alignment) {
 
 CTLineBreakMode CTLineBreakModeFromUILineBreakMode(NSLineBreakMode lineBreakMode) {
 	switch (lineBreakMode) {
-		case UILineBreakModeWordWrap: return kCTLineBreakByWordWrapping;
-		case UILineBreakModeCharacterWrap: return kCTLineBreakByCharWrapping;
-		case UILineBreakModeClip: return kCTLineBreakByClipping;
-		case UILineBreakModeHeadTruncation: return kCTLineBreakByTruncatingHead;
-		case UILineBreakModeTailTruncation: return kCTLineBreakByTruncatingTail;
-		case UILineBreakModeMiddleTruncation: return kCTLineBreakByTruncatingMiddle;
+		case NSLineBreakByCharWrapping: return kCTLineBreakByWordWrapping;
+		case NSLineBreakByClipping: return kCTLineBreakByClipping;
+		case NSLineBreakByTruncatingHead: return kCTLineBreakByTruncatingHead;
+		case NSLineBreakByTruncatingTail: return kCTLineBreakByTruncatingTail;
+		case NSLineBreakByTruncatingMiddle: return kCTLineBreakByTruncatingMiddle;
 		default: return 0;
 	}
 }
@@ -384,7 +383,7 @@ BOOL CTRunContainsCharactersFromStringRange(CTRunRef run, NSRange range) {
 	
 	NSTextCheckingResult *linkAtTouchesEnded = [self linkAtPoint:pt];
 	
-	BOOL closeToStart = (abs(touchStartPoint.x - pt.x) < 10 && abs(touchStartPoint.y - pt.y) < 10);
+	BOOL closeToStart = (fabsf(touchStartPoint.x - pt.x) < 10 && (fabsf(touchStartPoint.y - pt.y)) < 10);
     
 	// we can check on equality of the ranges themselfes since the data detectors create new results
 	if (activeLink && (NSEqualRanges(activeLink.range,linkAtTouchesEnded.range) || closeToStart)) {
@@ -712,9 +711,9 @@ BOOL CTRunContainsCharactersFromStringRange(CTRunRef run, NSRange range) {
 
 #if OHAttributedLabel_WarnAboutKnownIssues
 -(void)warnAboutKnownIssues_CheckLineBreakMode {
-	BOOL truncationMode = (self.lineBreakMode == UILineBreakModeHeadTruncation)
-	|| (self.lineBreakMode == UILineBreakModeMiddleTruncation)
-	|| (self.lineBreakMode == UILineBreakModeTailTruncation);
+	BOOL truncationMode = (self.lineBreakMode == NSLineBreakByTruncatingHead)
+	|| (self.lineBreakMode == NSLineBreakByTruncatingMiddle)
+	|| (self.lineBreakMode == NSLineBreakByTruncatingTail);
 	if (truncationMode) {
 		NSLog(@"[OHAttributedLabel] Warning: \"UILineBreakMode...Truncation\" lineBreakModes not yet fully supported by CoreText and OHAttributedLabel");
 		NSLog(@"                    (truncation will appear on each paragraph instead of the whole text)");

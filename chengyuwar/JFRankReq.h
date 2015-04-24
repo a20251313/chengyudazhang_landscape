@@ -23,7 +23,7 @@ typedef enum
 
 -(void)getRankIndexArray:(NSMutableArray*)arrayRank type:(JFRankListType)type selfModel:(JFRankModel*)selfmodel;
 -(void)getNetError:(NSString*)statusCode;
--(void)getPersionalInfo:(eSDStatus)status info:(NSDictionary*)dicInfo;
+-(void)getPersionalInfo:(int)status info:(NSDictionary*)dicInfo;
 @end
 
 @interface JFRankReq : NSObject<JFHttpRequsetMangerDelegate>

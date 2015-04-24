@@ -125,12 +125,12 @@
 }
 
 
--(void)getPersionalInfo:(eSDStatus)status info:(NSDictionary*)dicInfo
+-(void)getPersionalInfo:(int)status info:(NSDictionary*)dicInfo
 {
     JFRankView  *view = (JFRankView*)[m_rankView viewWithTag:200];
     
  
-    if (eSDS_Ok == status)
+    if (1 == status)
     {
         //  int     roleID = [[dicInfo valueForKey:@"role_id"] intValue];
         //   NSString  *nickName = [dicInfo valueForKey:@"nick_name"];
@@ -180,6 +180,7 @@
     rankView.tag = 200;
     rankView.delegate = self;
     
+    /*
     int roleid = [[[JFLocalPlayer shareInstance] roleModel] roleType];
     if (roleid < 1)
     {
@@ -187,7 +188,7 @@
     }else
     {
         rankView.showSelf = YES;
-    }
+    }*/
     [rankView updateWithModelWithArray:m_arrayData type:JFRankViewTypeNone userSelf:selfModel];
     [self requestRankeData];
     

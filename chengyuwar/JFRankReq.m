@@ -54,7 +54,7 @@
 
 -(void)getServerResult:(NSDictionary*)dicInfo requsetString:(NSString *)requestString
 {
-    eSDStatus  status = [[dicInfo valueForKey:@"result"] intValue];
+    int  status = [[dicInfo valueForKey:@"result"] intValue];
     
     DLOG(@"getServerResult:%d   mangerrequetstring:%@ dicInfo:%@ ",status,requestString,dicInfo);
     

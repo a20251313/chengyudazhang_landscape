@@ -14,7 +14,6 @@
 #import "DownloadHttpFile.h"
 #import "JFPhaseXmlData.h"
 //#import "YouMiWallSpotView.h"
-#import "JFYouMIManger.h"
 #import "ZVolumeSlide.h"
 
 @interface JFCheckPointViewController : UIViewController<JFSinglecheckViewDelegate,JFCheckContentViewDelegate,JFDownZipMangerDelegate,DownloadHttpFileDelegate>

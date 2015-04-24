@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "SQLOperation.h"
 #import "JFLocalPlayer.h"
-#import "JFRoleModel.h"
 #import "JFIdiomModel.h"
 
 
@@ -42,9 +41,7 @@
 +(BOOL)updateGameCenterLoginInfo:(NSString*)gameCenterID userID:(NSString*)userID;
 
 
-//
-+(BOOL)roleIsUnlock:(JFRoleModelType)type;
-+(void)UpdateRoleUnck:(JFRoleModelType)type isUnlock:(int)isUnlock;
+
 
 
 //

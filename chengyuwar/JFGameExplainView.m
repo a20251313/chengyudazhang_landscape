@@ -16,7 +16,7 @@
 {
     frame = [UIScreen mainScreen].bounds;
     
-    self = [super initWithFrame:CGRectMake(0, 0, frame.size.height, frame.size.width)];
+    self = [super initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     if (self)
     {
         m_arrayData = [[NSMutableArray alloc] init];
@@ -33,7 +33,7 @@
 {
     
     JFPropModel  *modeltrash = [[JFPropModel alloc] initWithPropType:JFPropModelTypeTrash];
-    JFPropModel  *modeltime = [[JFPropModel alloc] initWithPropType:JFPropModelTypeTimeMachine];
+    //   JFPropModel  *modeltime = [[JFPropModel alloc] initWithPropType:JFPropModelTypeTimeMachine];
     JFPropModel  *modelgoodidea = [[JFPropModel alloc] initWithPropType:JFPropModelTypeIdeaShow];
     JFPropModel  *modelavoid = [[JFPropModel alloc] initWithPropType:JFPropModelTypeAvoidAnswer];
     JFPropModel  *modelexchanger = [[JFPropModel alloc] initWithPropType:JFPropModelTypeExchangeUser];
@@ -41,7 +41,7 @@
     JFPropModel  *modeltreasex = [[JFPropModel alloc] initWithPropType:JFPropModelTypeTreasureBox];
     //JFPropModel  *modeltrash = [[JFPropModel alloc] initWithPropType:JFPropModelTypeTrash];
     [m_arrayData addObject:modeltrash];
-    [m_arrayData addObject:modeltime];
+    ////  [m_arrayData addObject:modeltime];
     [m_arrayData addObject:modelgoodidea];
     [m_arrayData addObject:modelavoid];
     [m_arrayData addObject:modelexchanger];
@@ -49,7 +49,7 @@
  //   [m_arrayData addObject:modeltreasex];
     
     [modeltrash release];
-    [modeltime release];
+    //    [modeltime release];
     [modelgoodidea release];
     [modelavoid release];
     [modelexchanger release];
@@ -156,12 +156,12 @@
 
 -(void)show
 {
-    [self addobserverForBarOrientationNotification];
-    UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
-    CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
+    // [self addobserverForBarOrientationNotification];
+    //UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
+    ///CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
     UIWindow  *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     self.center = window.center;
-    self.transform = CGAffineTransformMakeRotation(fValue);
+    // self.transform = CGAffineTransformMakeRotation(fValue);
     [window addSubview:self];
 }
 -(void)dealloc

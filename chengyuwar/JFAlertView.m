@@ -85,7 +85,7 @@
 - (void)defaultInit
 {
     _overlayView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    CGRect  frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
+    CGRect  frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     [_overlayView setFrame:frame];
     [self setFrame:frame];
     _overlayView.backgroundColor = [UIColor colorWithRed:.16 green:.17 blue:.21 alpha:.5];
@@ -135,7 +135,7 @@
     _contentLabel.shadowColor = [UIColor whiteColor];
     _contentLabel.shadowOffset = CGSizeMake(245, 82);
     _contentLabel.text = self.warningMsg;
-    _contentLabel.textAlignment = UITextAlignmentCenter;
+    _contentLabel.textAlignment = NSTextAlignmentCenter;
     _contentLabel.numberOfLines = 0;
     _contentLabel.font = TEXTFONTWITHSIZE(17);
     _contentLabel.shadowColor = [UIColor whiteColor];
@@ -211,14 +211,14 @@
 - (void)show
 {
     
-    [self addobserverForBarOrientationNotification];
-    UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
-    CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
+    //  [self addobserverForBarOrientationNotification];
+    //  UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
+    // CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
     dispatch_async(dispatch_get_main_queue(), ^
     {
         UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
-        _overlayView.transform = CGAffineTransformMakeRotation(fValue);
-        self.transform = CGAffineTransformMakeRotation(fValue);
+        // _overlayView.transform = CGAffineTransformMakeRotation(fValue);
+        //  self.transform = CGAffineTransformMakeRotation(fValue);
         _overlayView.center = window.center;
         self.center = window.center;
         [window addSubview:_overlayView];

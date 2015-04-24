@@ -244,30 +244,30 @@
 }
 
 
--(void)getExchangeCoderesult:(eSDStatus)status addNumber:(int)addnumber
-{
-    if (status == eSDS_Ok)
-    {
-        [JFLocalPlayer addgoldNumber:addnumber];
-        iToast  *toast = [[iToast alloc] initWithText:@"兑换成功"];
-        [toast show];
-        [toast release];
-        
-        [self removeFromSuperview];
-    }else if(status == eSDS_HttpVerifyExchangeCodeFailed)
-    {
-        
-        
-        [m_textWord setTextColor:[UIColor redColor]];
-        /*
-        JFAlertView *av = [[JFAlertView alloc] initWithTitle:@"提示" message:@"验证码过期。" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定"];
-        [av show];
-        [av release];*/
-    }else
-    {
-        [m_textWord setTextColor:[UIColor redColor]];
-    }
-}
+//-(void)getExchangeCoderesult:(int)status addNumber:(int)addnumber
+//{
+//    if (status == 1)
+//    {
+//        [JFLocalPlayer addgoldNumber:addnumber];
+//        iToast  *toast = [[iToast alloc] initWithText:@"兑换成功"];
+//        [toast show];
+//        [toast release];
+//        
+//        [self removeFromSuperview];
+//    }else if(status == eSDS_HttpVerifyExchangeCodeFailed)
+//    {
+//        
+//        
+//        [m_textWord setTextColor:[UIColor redColor]];
+//        /*
+//        JFAlertView *av = [[JFAlertView alloc] initWithTitle:@"提示" message:@"验证码过期。" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定"];
+//        [av show];
+//        [av release];*/
+//    }else
+//    {
+//        [m_textWord setTextColor:[UIColor redColor]];
+//    }
+//}
 -(void)networkOccurError:(NSString*)statusCode
 {
     [self hideProgress];

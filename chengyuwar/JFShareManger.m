@@ -1,262 +1,372 @@
 //
 //  JFShareManger.m
-//  chengyuwar
+//  DrawSelf
 //
-//  Created by ran on 13-12-25.
-//  Copyright (c) 2013年 com.lelechat.chengyuwar. All rights reserved.
+//  Created by Ran Jingfu on 2/22/14.
+//  Copyright (c) 2014 com.jingfu.ran. All rights reserved.
 //
-
+//
 #import "JFShareManger.h"
-#import "JFLocalPlayer.h"
-#import "JFShareSucView.h"
-#import "JFAlertView.h"
+#if  UMSOCAIL
+#import "UMSocial.h"
+#import "UMSocialSnsService.h"
+#import "UMSocialControllerService.h"
+#else
+#import "WXApi.h"
+#import "WeiboApi.h"
+#import <TencentOpenAPI/QQApi.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <QZoneConnection/ISSQZoneApp.h>
+
+#import <FacebookConnection/ISSFacebookApp.h>
+#endif
+#define APPLINK     @"https://itunes.apple.com/us/app/feng-kuang-cheng-yu/id908875876?l=zh&ls=1&mt=8"
+#define SHAREHEAD   @"#疯狂成语#"
+//#define UmengAppkey @"UmengAppkey"
 
 
-#define WEIXINAPPID         @"wx267541488a2945f4"
-#define SINAAPPID           @"3355604061"
-#define TENCENTWEIBOAPPID   @"801465849"
+@interface JFShareManger ()<ISSShareViewDelegate>
 
-
-
-#define SHAREHEAD           @"#成语大战#"
-#define SHAREWORD           @"让人抓狂的成语，我有点上瘾了，挑战到底有木有~"
-#define SHAREDOWNLOADURL    [[[JFLocalPlayer shareInstance] lanchModel] ios_share_app_url]
-static  JFShareManger   *sharemanger = nil;
-
-
+@end
+static JFShareManger    *shareManger = nil;
 @implementation JFShareManger
-@synthesize shareImage;
-@synthesize shareMsg;
-@synthesize type;
-
-
-+(NSString*)storePath
-{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"localJFShareManger"];
-                          
-    //  NSError *error = nil;
-    
-    /* if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
-     [[NSFileManager defaultManager] createFileAtPath:dataPath contents:nil attributes:nil:dataPath withIntermediateDirectories:NO attributes:nil error:&error];
-     if (error)
-     {
-     DLOG(@"error:%@",error);
-     }*/
-    return dataPath;
-}
-
-+(void)shareWithMsg:(NSString*)msg image:(UIImage*)image
-{
-    JFShareManger   *manger  = [JFShareManger shareInstance];
-    manger.shareMsg = @"";
-    manger.shareImage = image;
-    dispatch_async(dispatch_get_main_queue(), ^
-    {
-        [sharemanger showShareView];
-    }); 
-}
-
-+(BOOL)isNeedShowSucAlert
-{
-    BOOL  bneed = NO;
-    NSString    *strStorekey = [NSString stringWithFormat:@"LocalShareCount%@",[[JFLocalPlayer shareInstance] userID]];
-    
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:strStorekey])
-    {
-        int count = [[[NSUserDefaults standardUserDefaults] valueForKey:strStorekey] intValue];
-        if (count > 0)
-        {
-            bneed = YES;
-        }
-        
-    }
-    
-    return bneed;
-}
-+(BOOL)storeLeaveShareCountDelete
-{
-    NSString    *strStorekey = [NSString stringWithFormat:@"LocalShareCount%@",[[JFLocalPlayer shareInstance] userID]];
-    int count = 4;
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:strStorekey])
-    {
-        count = [[[NSUserDefaults standardUserDefaults] valueForKey:strStorekey] intValue];
-        count--;
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:@(count) forKey:strStorekey];
-    
-    return [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+(int)getleaveCount
-{
-   // return 5;
-    int count = 5;
-    NSString    *strStorekey = [NSString stringWithFormat:@"LocalShareCount%@",[[JFLocalPlayer shareInstance] userID]];
-    
-    
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:strStorekey])
-    {
-        count = [[[NSUserDefaults standardUserDefaults] valueForKey:strStorekey] intValue];
-    }
-    
-    if (count < 0)
-    {
-        count = 0;
-    }
-
-    return count;
-}
-
-
--(void)dealloc
-{
-    self.shareMsg = nil;
-    self.shareMsg = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
-}
 
 
 +(id)shareInstance
 {
-    if (!sharemanger)
+    if (!shareManger)
     {
-        sharemanger = [[JFShareManger alloc] init];
-    }
-    return sharemanger;
-}
-
--(void)shareWithType:(JFShareModelType)Temptype
-{
-    self.type = Temptype;
-    JFShareWordView *view = [[JFShareWordView alloc] initWithFrame:CGRectZero];
-    [view updateMsg:self.shareMsg UIImage:self.shareImage];
-    view.delegate = self;
-    [view show];
-    [view release];
-}
-
--(void)showShareView
-{
-    JFShareView *view = [[JFShareView alloc] initWithLeaveCount:[JFShareManger getleaveCount]];
-    view.delegate = self;
-    [view show];
-    [view release];
-}
-
-
--(void)shareWeiBoSuc:(NSNotification*)note
-{
-   
-    if ([JFShareManger getleaveCount] > 0)
-    {
-       
-        JFShareSucView  *view = [[JFShareSucView alloc] initWithRewardCount:50];
-        [view show];
-        [view release];
-    }
-    [JFShareManger storeLeaveShareCountDelete];
+        shareManger = [[JFShareManger alloc] init];
+#if UMSOCAIL
+#else
+        
+        [ShareSDK registerApp:@"5873f8a7ac36"];
+        [shareManger initializePlat];
+        [shareManger initializePlatForTrusteeship];
     
-    DLOG(@"shareWeiBoSuc:%@",note);
+#endif
+    }
+    return shareManger;
     
 }
--(void)shareWeiBoFail:(NSNotification*)note
+
+
++(void)shareWithMsg:(NSString*)strMsg image:(UIImage*)image viewController:(UIViewController*)viewController
 {
-    NSError *error = [note object];
-    if (error  && [error isKindOfClass:[NSError class]])
+    [[JFShareManger shareInstance] shareWithMsg:strMsg image:image viewController:viewController];
+}
+
+
+#if UMSOCAIL
+-(void)shareWithMsg:(NSString*)strMsg image:(UIImage*)image viewController:(UIViewController*)viewController
+{
+
+    strMsg = [NSString stringWithFormat:@"%@ %@ %@",SHAREHEAD,strMsg,APPLINK];
+    //如果得到分享完成回调，需要设置delegate为self
+    [UMSocialSnsService presentSnsIconSheetView:viewController appKey:UmengAppkey shareText:strMsg shareImage:image shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToTencent,UMShareToEmail,UMShareToSms,UMShareToWechatSession,UMShareToWechatTimeline, nil] delegate:self];
+}
+
+-(void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response
+{
+    if (response.responseCode == UMSResponseCodeSuccess)
     {
-        if ([error code] == -1009)
+        DLOG(@"didFinishGetUMSocialDataInViewController:%@",response);
+    }
+}
+#else
+
+
+
+- (void)initializePlat
+{
+    /**
+     连接新浪微博开放平台应用以使用相关功能，此应用需要引用SinaWeiboConnection.framework
+     http://open.weibo.com上注册新浪微博开放平台应用，并将相关信息填写到以下字段
+     **/
+    [ShareSDK connectSinaWeiboWithAppKey:@"3652079338"
+                               appSecret:@"74c42983ff6ca1899ec1a770d51cd529"
+                             redirectUri:@"http://www.sns.whalecloud.com"];
+    
+    /**
+     连接腾讯微博开放平台应用以使用相关功能，此应用需要引用TencentWeiboConnection.framework
+     http://dev.t.qq.com上注册腾讯微博开放平台应用，并将相关信息填写到以下字段
+     
+     如果需要实现SSO，需要导入libWeiboSDK.a，并引入WBApi.h，将WBApi类型传入接口
+     **/
+    [ShareSDK connectTencentWeiboWithAppKey:@"801307650"
+                                  appSecret:@"ae36f4ee3946e1cbb98d6965b0b2ff5c"
+                                redirectUri:@"http://www.sharesdk.cn"
+                                   wbApiCls:[WeiboApi class]];
+    
+    //连接短信分享
+    //[ShareSDK connectSMS];
+    
+    /**
+     连接QQ空间应用以使用相关功能，此应用需要引用QZoneConnection.framework
+     http://connect.qq.com/intro/login/上申请加入QQ登录，并将相关信息填写到以下字段
+     
+     如果需要实现SSO，需要导入TencentOpenAPI.framework,并引入QQApiInterface.h和TencentOAuth.h，将QQApiInterface和TencentOAuth的类型传入接口
+     **/
+    /*[ShareSDK connectQZoneWithAppKey:@"100371282"
+                           appSecret:@"aed9b0303e3ed1e27bae87c33761161d"
+                   qqApiInterfaceCls:[QQApiInterface class]
+                     tencentOAuthCls:[TencentOAuth class]];*/
+    
+    /**
+     连接微信应用以使用相关功能，此应用需要引用WeChatConnection.framework和微信官方SDK
+     http://open.weixin.qq.com上注册应用，并将相关信息填写以下字段
+     **/
+    //    [ShareSDK connectWeChatWithAppId:@"wx4868b35061f87885" wechatCls:[WXApi class]];
+    [ShareSDK connectWeChatWithAppId:@"wxc6d70fb221f3d704"
+                           appSecret:@"ca9223f4afc6bb23b3dde31d17b2ab68"
+                           wechatCls:[WXApi class]];
+    /**
+     连接QQ应用以使用相关功能，此应用需要引用QQConnection.framework和QQApi.framework库
+     http://mobile.qq.com/api/上注册应用，并将相关信息填写到以下字段
+     **/
+    //旧版中申请的AppId（如：QQxxxxxx类型），可以通过下面方法进行初始化
+    //    [ShareSDK connectQQWithAppId:@"QQ075BCD15" qqApiCls:[QQApi class]];
+    
+   /* [ShareSDK connectQQWithQZoneAppKey:@"100371282"
+                     qqApiInterfaceCls:[QQApiInterface class]
+                       tencentOAuthCls:[TencentOAuth class]];*/
+    
+    /**
+     连接Facebook应用以使用相关功能，此应用需要引用FacebookConnection.framework
+     https://developers.facebook.com上注册应用，并将相关信息填写到以下字段
+     **/
+ //   [ShareSDK connectFacebookWithAppKey:@"107704292745179"
+                            //  appSecret:@"38053202e1a5fe26c80c753071f0b573"];
+    
+    /**
+     连接Twitter应用以使用相关功能，此应用需要引用TwitterConnection.framework
+     https://dev.twitter.com上注册应用，并将相关信息填写到以下字段
+     **/
+   /* [ShareSDK connectTwitterWithConsumerKey:@"mnTGqtXk0TYMXYTN7qUxg"
+                             consumerSecret:@"ROkFqr8c3m1HXqS3rm3TJ0WkAJuwBOSaWhPbZ9Ojuc"
+                                redirectUri:@"http://www.sharesdk.cn"];*/
+    
+
+    
+
+
+    
+    //连接邮件
+   // [ShareSDK connectMail];
+    
+    //连接打印
+   // [ShareSDK connectAirPrint];
+    
+    //连接拷贝
+ //   [ShareSDK connectCopy];
+    
+
+    
+}
+
+/**
+ *	@brief	托管模式下的初始化平台
+ */
+- (void)initializePlatForTrusteeship
+{
+    
+    //导入QQ互联和QQ好友分享需要的外部库类型，如果不需要QQ空间SSO和QQ好友分享可以不调用此方法
+    [ShareSDK importQQClass:[QQApiInterface class] tencentOAuthCls:[TencentOAuth class]];
+    
+    //导入腾讯微博需要的外部库类型，如果不需要腾讯微博SSO可以不调用此方法
+    [ShareSDK importTencentWeiboClass:[WeiboApi class]];
+    
+    //导入微信需要的外部库类型，如果不需要微信分享可以不调用此方法
+    [ShareSDK importWeChatClass:[WXApi class]];
+}
+
+
+#pragma mark - ButtonHandler
+
+
+-(void)shareWithMsg:(NSString*)strMsg image:(UIImage*)image viewController:(UIViewController*)viewController
+{
+    NSString    *content = [NSString stringWithFormat:@"%@  %@",strMsg,APPLINK];
+    [self shareAllByimage:image content:content];
+}
+
+/**
+ *	@brief	分享全部
+ *
+ *	@param 	sender 	事件对象
+ */
+- (void)shareAllByimage:(UIImage*)image content:(NSString*)content
+{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[NSDate date]]];
+    NSData  *data = UIImagePNGRepresentation(image);
+    [data writeToFile:dataPath atomically:NO];
+    
+
+  
+    //构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:content
+                                       defaultContent:content
+                                                image:[ShareSDK imageWithPath:dataPath]
+                                                title:@"分享"
+                                                  url:APPLINK
+                                          description:APPLINK
+                                            mediaType:SSPublishContentMediaTypeImage];
+    
+    //以下信息为特定平台需要定义分享内容，如果不需要可省略下面的添加方法
+    
+
+    //结束定制信息
+    
+    //创建弹出菜单容器
+    id<ISSContainer> container = [ShareSDK container];
+    [container setIPadContainerWithView:nil arrowDirect:UIPopoverArrowDirectionUp];
+    
+    id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:YES
+                                                         allowCallback:NO
+                                                         authViewStyle:SSAuthViewStyleFullScreenPopup
+                                                          viewDelegate:nil
+                                               authManagerViewDelegate:nil];
+    
+
+    
+    id<ISSShareOptions> shareOptions = [ShareSDK defaultShareOptionsWithTitle:@"分享"
+                                                              oneKeyShareList:[NSArray defaultOneKeyShareList]
+                                                               qqButtonHidden:YES
+                                                        wxSessionButtonHidden:YES
+                                                       wxTimelineButtonHidden:YES
+                                                         showKeyboardOnAppear:NO
+                                                            shareViewDelegate:nil
+                                                          friendsViewDelegate:nil
+                                                        picViewerViewDelegate:nil];
+    
+    //弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:authOptions
+                      shareOptions:shareOptions
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    NSLog(NSLocalizedString(@"TEXT_ShARE_SUC", @"分享成功"));
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }
+                            }];
+}
+
+
+
+
+
+
+#pragma mark - ISSShareViewDelegate
+/*
+- (void)viewOnWillDisplay:(UIViewController *)viewController shareType:(ShareType)shareType
+{
+    
+    if ([[UIDevice currentDevice].systemVersion compare:@"7.0"] != NSOrderedAscending)
+    {
+        UIButton *leftBtn = (UIButton *)viewController.navigationItem.leftBarButtonItem.customView;
+        UIButton *rightBtn = (UIButton *)viewController.navigationItem.rightBarButtonItem.customView;
+        
+        [leftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.text = viewController.title;
+        label.font = [UIFont boldSystemFontOfSize:18];
+        [label sizeToFit];
+        
+        viewController.navigationItem.titleView = label;
+        
+        [label release];
+    }
+    
+    if (isPad)
+    {
+        UILabel *label = [[UILabel alloc] init];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.shadowColor = [UIColor grayColor];
+        label.font = [UIFont systemFontOfSize:22];
+        viewController.navigationItem.titleView = label;
+        label.text = viewController.title;
+        [label sizeToFit];
+        [label release];
+        
+        if (UIInterfaceOrientationIsLandscape(viewController.interfaceOrientation))
         {
-            JFAlertView *av = [[JFAlertView alloc] initWithTitle:@"提示" message:@"无法连接网络。" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"我知道了"];
-            [av show];
-            [av release];
+            [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPadLandscapeNavigationBarBG.png"]];
+        }
+        else
+        {
+            [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPadNavigationBarBG.png"]];
         }
     }
-    DLOG(@"++++++++++++++++error occur+++++++++++++++++++\nshareWeiBoFail:%@",note);
+    else
+    {
+        if (UIInterfaceOrientationIsLandscape(viewController.interfaceOrientation))
+        {
+            if ([[UIDevice currentDevice] isPhone5])
+            {
+                [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPhoneLandscapeNavigationBarBG-568h.png"]];
+            }
+            else
+            {
+                [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPhoneLandscapeNavigationBarBG.png"]];
+            }
+        }
+        else
+        {
+            [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPhoneNavigationBarBG.png"]];
+        }
+    }
 }
 
-#pragma mark    JFShareWordViewDelegate
--(void)shareWithMsg:(NSString*)strMsg  image:(UIImage*)image
+- (void)view:(UIViewController *)viewController autorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation shareType:(ShareType)shareType
 {
-    /*
-    if (!strMsg || [strMsg isEqualToString:@""])
+    if (isPad)
     {
-        strMsg = SHAREWORD;
+        if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+        {
+            [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPadLandscapeNavigationBarBG.png"]];
+        }
+        else
+        {
+            [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPadNavigationBarBG.png"]];
+        }
     }
-    strMsg = [NSString stringWithFormat:@"%@%@%@",SHAREHEAD,strMsg,SHAREDOWNLOADURL];
-    self.shareMsg = strMsg;
- 
-    
-    NSString    *platom = FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO;
-    switch (self.type)
+    else
     {
-        case JFShareModelTypeSina:
-            platom = FRONTIA_SOCIAL_SHARE_PLATFORM_SINAWEIBO;
-            break;
-        case JFShareModelTypeTencent:
-           platom = FRONTIA_SOCIAL_SHARE_PLATFORM_QQWEIBO;
-            break;
-        case JFShareModelTypeWeiXin:
-            platom = FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_SESSION;
-            break;
-        case JFShareModelTypePengyouquan:
-            platom = FRONTIA_SOCIAL_SHARE_PLATFORM_WEIXIN_TIMELINE;
-            break;
-        default:
-            break;
+        if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+        {
+            if ([[UIDevice currentDevice] isPhone5])
+            {
+                [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPhoneLandscapeNavigationBarBG-568h.png"]];
+            }
+            else
+            {
+                [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPhoneLandscapeNavigationBarBG.png"]];
+            }
+        }
+        else
+        {
+            [viewController.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"iPhoneNavigationBarBG.png"]];
+        }
     }
-    
-    
-    
-    FrontiaShare *share = [Frontia getShare];
-    [share registerSinaweiboAppId:SINAAPPID];
-    [share registerWeixinAppId:WEIXINAPPID];
-    [share registerQQAppId:TENCENTWEIBOAPPID];
-    
-    
-
-    
-    
-    //授权取消回调函数
-    FrontiaShareCancelCallback onCancel = ^()
-    {
-        [self shareWeiBoFail:nil];
-        NSLog(@"OnCancel: share is cancelled");
-    };
-    
-    //授权失败回调函数
-    FrontiaShareFailureCallback onFailure = ^(int errorCode, NSString *errorMessage)
-    {
-        [self shareWeiBoFail:nil];
-        NSLog(@"OnFailure: %d  %@", errorCode, errorMessage);
-    };
-    
-    //授权成功回调函数
-    FrontiaSingleShareResultCallback onResult = ^()
-    {
-        [self shareWeiBoSuc:nil];
-        NSLog(@"OnResult: share success");
-    };
-    
-    FrontiaShareContent *content=[[FrontiaShareContent alloc] init];
-    content.url = SHAREDOWNLOADURL;
-    content.title = @"分享";
-    content.description = strMsg;
-    content.imageObj = image;
-    
-    
-
-
-    [share shareWithPlatform:platom content:content supportedInterfaceOrientations:UIInterfaceOrientationMaskLandscape isStatusBarHidden:YES cancelListener:onCancel failureListener:onFailure resultListener:onResult];
-    
-    
-    
-    self.shareImage = nil;
-    self.shareMsg = nil;*/
-    
 }
+ */
+
+#endif
 @end

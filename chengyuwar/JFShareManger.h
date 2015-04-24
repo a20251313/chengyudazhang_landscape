@@ -1,25 +1,15 @@
 //
 //  JFShareManger.h
-//  chengyuwar
+//  DrawSelf
 //
-//  Created by ran on 13-12-25.
-//  Copyright (c) 2013年 com.lelechat.chengyuwar. All rights reserved.
+//  Created by Ran Jingfu on 2/22/14.
+//  Copyright (c) 2014 com.jingfu.ran. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "JFShareView.h"
-#import "JFShareWordView.h"
-#import "JFLocalPlayer.h"
-//#import <Frontia/Frontia.h>
-
-@interface JFShareManger : NSObject<JFShareViewDelegate,JFShareWordViewDelegate>
+#import "UIImge-GetSubImage.h"
+@interface JFShareManger : NSObject
 
 
-@property(nonatomic,copy)NSString       *shareMsg;
-@property(nonatomic,retain)UIImage      *shareImage;
-@property(nonatomic)JFShareModelType    type;
-
-
-
-+(void)shareWithMsg:(NSString*)msg image:(UIImage*)image;
++(void)shareWithMsg:(NSString*)strMsg image:(UIImage*)image viewController:(UIViewController*)viewController;
 @end

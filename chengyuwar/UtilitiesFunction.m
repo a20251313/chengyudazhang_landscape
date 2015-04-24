@@ -1263,6 +1263,9 @@ static const char* jailbreak_apps[] =
         if (!bSuc || error)
         {
             DLOG(@"deleteNomalXmlPath fail:%@  error:%@",filePath,error);
+        }else
+        {
+            DLOG(@"deleteNomalXmlPath fail:%@  suc:%d",filePath,bSuc);
         }
         
     }

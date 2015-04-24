@@ -99,7 +99,7 @@ NSString   *const   BNRShowSetView = @"BNRShowSetView";
 -(void)initView
 {
     CGSize  size = [UIScreen mainScreen].bounds.size;
-    CGRect  frame = CGRectMake(0, 0, size.height, size.width);
+    CGRect  frame = CGRectMake(0, 0, size.width, size.height);
 
     if (!m_bgView)
     {
@@ -149,47 +149,34 @@ NSString   *const   BNRShowSetView = @"BNRShowSetView";
     ModelNUll.type = aboutDataModelTypeNULL;
     
     aboutDataModel  *imageModel = [aboutDataModel aboutmodelwithImageName:@"about_chengyu_words.png"];
-    aboutDataModel  *model1 = [aboutDataModel aboutmodelwithtitle:@"公司" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
-    aboutDataModel  *model2 = [aboutDataModel aboutmodelwithtitle:@"上海鱼游网络科技有限公司" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model3 = [aboutDataModel aboutmodelwithtitle:@"产品" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
-    aboutDataModel  *model4 = [aboutDataModel aboutmodelwithtitle:@"江山" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model5 = [aboutDataModel aboutmodelwithtitle:@"陈虹志" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model6 = [aboutDataModel aboutmodelwithtitle:@"美术" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
-    aboutDataModel  *model7 = [aboutDataModel aboutmodelwithtitle:@"张驰" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model8 = [aboutDataModel aboutmodelwithtitle:@"杨庆元" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-     aboutDataModel  *model9 = [aboutDataModel aboutmodelwithtitle:@"毕源泉" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model1 = [aboutDataModel aboutmodelwithtitle:@"公司" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
+//    aboutDataModel  *model2 = [aboutDataModel aboutmodelwithtitle:@"上海鱼游网络科技有限公司" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model3 = [aboutDataModel aboutmodelwithtitle:@"产品" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
+//    aboutDataModel  *model4 = [aboutDataModel aboutmodelwithtitle:@"江山" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model5 = [aboutDataModel aboutmodelwithtitle:@"陈虹志" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model6 = [aboutDataModel aboutmodelwithtitle:@"美术" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
+//    aboutDataModel  *model7 = [aboutDataModel aboutmodelwithtitle:@"张驰" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model8 = [aboutDataModel aboutmodelwithtitle:@"杨庆元" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//     aboutDataModel  *model9 = [aboutDataModel aboutmodelwithtitle:@"毕源泉" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
     aboutDataModel  *model10 = [aboutDataModel aboutmodelwithtitle:@"开发" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
-    aboutDataModel  *model11 = [aboutDataModel aboutmodelwithtitle:@"冉景富" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model12 = [aboutDataModel aboutmodelwithtitle:@"刘峥" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-  //  aboutDataModel  *model13 = [aboutDataModel aboutmodelwithtitle:@"顾栋梁" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model14 = [aboutDataModel aboutmodelwithtitle:@"卢健勋" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    
-    
-    aboutDataModel  *model15 = [aboutDataModel aboutmodelwithtitle:@"测试" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
-    aboutDataModel  *model16 = [aboutDataModel aboutmodelwithtitle:@"刘明星" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
-    aboutDataModel  *model17 = [aboutDataModel aboutmodelwithtitle:@"陈爱琴" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+    aboutDataModel  *model11 = [aboutDataModel aboutmodelwithtitle:@"Joshon" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+   aboutDataModel  *model12 = [aboutDataModel aboutmodelwithtitle:@"版本" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
+    aboutDataModel  *model13 = [aboutDataModel aboutmodelwithtitle:@"1.0.0" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model14 = [aboutDataModel aboutmodelwithtitle:@"卢健勋" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    
+//    
+//    aboutDataModel  *model15 = [aboutDataModel aboutmodelwithtitle:@"测试" color:[UIColor blackColor] textfont:TEXTFONTWITHSIZE(25)];
+//    aboutDataModel  *model16 = [aboutDataModel aboutmodelwithtitle:@"刘明星" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
+//    aboutDataModel  *model17 = [aboutDataModel aboutmodelwithtitle:@"陈爱琴" color:TEXTCOMMONCOLORSecond textfont:TEXTFONTWITHSIZE(21)];
 
     
     
     [m_arrayData addObject:ModelNUll];
     [m_arrayData addObject:imageModel];
-    [m_arrayData addObject:model1];
-    [m_arrayData addObject:model2];
-    [m_arrayData addObject:model3];
-    [m_arrayData addObject:model4];
-    [m_arrayData addObject:model5];
-    [m_arrayData addObject:model6];
-    [m_arrayData addObject:model7];
-    [m_arrayData addObject:model8];
-    [m_arrayData addObject:model9];
     [m_arrayData addObject:model10];
     [m_arrayData addObject:model11];
     [m_arrayData addObject:model12];
- //   [m_arrayData addObject:model13];
-    [m_arrayData addObject:model14];
-    [m_arrayData addObject:model15];
-    [m_arrayData addObject:model16];
-    [m_arrayData addObject:model17];
+    [m_arrayData addObject:model13];
     [m_arrayData addObject:ModelNUll];
 
     [ModelNUll release];
@@ -245,6 +232,9 @@ NSString   *const   BNRShowSetView = @"BNRShowSetView";
         [label setText:model.title];
         [label setFont:model.textfont];
         [label setTextColor:model.textColor];
+        
+        [cell setBackgroundColor:[UIColor clearColor]];
+        [cell setBackgroundView:[[UIView alloc] initWithFrame:CGRectZero]];
         return cell;
         
     }else if(model.type == aboutDataModelTypeImage)
@@ -260,6 +250,9 @@ NSString   *const   BNRShowSetView = @"BNRShowSetView";
             imageword.image = [PublicClass getImageAccordName:model.imageName];
             [cell.contentView addSubview:imageword];
             [imageword release];
+            
+            [cell setBackgroundColor:[UIColor clearColor]];
+            [cell setBackgroundView:[[UIView alloc] initWithFrame:CGRectZero]];
         }
         return cell;
         
@@ -272,6 +265,9 @@ NSString   *const   BNRShowSetView = @"BNRShowSetView";
             cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"nil"] autorelease];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
+        [cell setBackgroundColor:[UIColor clearColor]];
+        [cell setBackgroundView:[[UIView alloc] initWithFrame:CGRectZero]];
         return cell;
         
     }

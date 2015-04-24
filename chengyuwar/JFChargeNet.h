@@ -17,8 +17,8 @@
 @optional
 -(void)getPayIDFail:(NSDictionary*)dicInfo;
 -(void)chargeGoldSuc:(JFChargeProductModel*)model;
--(void)chargeGoldFail:(eSDStatus )status;
--(void)getServerRemainChargeFail:(eSDStatus)status;
+-(void)chargeGoldFail:(int )status;
+-(void)getServerRemainChargeFail:(int)status;
 -(void)getServerRemainChargeSuc:(int)goldNum isFirstCharge:(BOOL)isfirstCharge;
 -(void)getShopListInAppStoreSuccess:(id)thread;
 -(void)getShopListInAppStoreFail:(id)Thread;

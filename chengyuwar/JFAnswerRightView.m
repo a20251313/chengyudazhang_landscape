@@ -10,9 +10,7 @@
 #import "PublicClass.h"
 #import "UtilitiesFunction.h"
 #import "JFLocalPlayer.h"
-#import "JFYouMIManger.h"
 #import "JFAudioPlayerManger.h"
-#import "JFSendAdInfo.h"
 #import "JFAppSet.h"
 
 #if DEBUG

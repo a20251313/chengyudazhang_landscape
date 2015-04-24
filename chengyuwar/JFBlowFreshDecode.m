@@ -25,7 +25,10 @@
     NSError *error = nil;
     
     NSData *data = [NSData dataWithContentsOfFile:strPath options:NSDataReadingMappedIfSafe error:&error];
-
+    if (data == nil) {
+        DLOG(@"getDataAccordFilePath data is nil");
+        return nil;
+    }
     
     int size = data.length;
     int d = size % 8;

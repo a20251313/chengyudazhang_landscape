@@ -11,7 +11,7 @@
 #import "JFLocalPlayer.h"
 #import "JFAudioPlayerManger.h"
 #import "UIImge-GetSubImage.h"
-#import "JFShareManger.h"
+
 
 //JFRankViewTypeNone        450*262
 
@@ -398,7 +398,7 @@
         return;
     }
     UIImage *image = [UIImage getScreenImageWithView:self size:CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width)];
-    [JFShareManger shareWithMsg:@"hello" image:image];
+    // [JFShareManger shareWithMsg:@"hello" image:image];
     DLOG(@"clickToshare:%@",sender);
     
 }

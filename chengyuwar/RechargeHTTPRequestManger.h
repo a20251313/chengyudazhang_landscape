@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #import "JSONKit.h"
-#import "sdstatus.h"
 @class RechargeHTTPRequestManger;
 
 @protocol RechargeHTTPRequestMangerDelegate <NSObject>

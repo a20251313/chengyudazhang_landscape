@@ -61,12 +61,12 @@
     {
         
         NSTimeInterval  timer = [[NSDate date] timeIntervalSince1970];
-        [[SQLOperation sharedSQLOperation] insertToUSERINFO:player.userID userIDType:0 lastLogintime:[NSString stringWithFormat:@"%0.0f",timer] nickName:player.nickName    roletype:player.roleModel.roleType winConut:player.winNumber losecount:player.loseNumber goldNumber:player.goldNumber score:player.score maxconwinnumber:player.maxConWinNumber gamecenterID:[player.GamePlayerInfo valueForKey:@"playerID"] gameCenterDisplayName:[player.GamePlayerInfo valueForKey:@"displayName"] LastBeatleatLevel:player.lastLevel ispayedUser:player.isPayedUser];
+        [[SQLOperation sharedSQLOperation] insertToUSERINFO:player.userID userIDType:0 lastLogintime:[NSString stringWithFormat:@"%0.0f",timer] nickName:player.nickName    roletype:1 winConut:player.winNumber losecount:player.loseNumber goldNumber:player.goldNumber score:player.score maxconwinnumber:player.maxConWinNumber gamecenterID:[player.GamePlayerInfo valueForKey:@"playerID"] gameCenterDisplayName:[player.GamePlayerInfo valueForKey:@"displayName"] LastBeatleatLevel:player.lastLevel ispayedUser:player.isPayedUser];
         
     }else
     {
         NSTimeInterval  timer = [[NSDate date] timeIntervalSince1970];
-        [[SQLOperation sharedSQLOperation] UpdateUSERINFO:player.userID userIDType:0 lastLogintime:[NSString stringWithFormat:@"%0.0f",timer] nickName:player.nickName    roletype:player.roleModel.roleType winConut:player.winNumber losecount:player.loseNumber goldNumber:player.goldNumber score:player.score maxconwinnumber:player.maxConWinNumber gamecenterID:[player.GamePlayerInfo valueForKey:@"playerID"] gameCenterDisplayName:[player.GamePlayerInfo valueForKey:@"displayName"] LastBeatleatLevel:player.lastLevel isPayed:player.isPayedUser];
+        [[SQLOperation sharedSQLOperation] UpdateUSERINFO:player.userID userIDType:0 lastLogintime:[NSString stringWithFormat:@"%0.0f",timer] nickName:player.nickName    roletype:1 winConut:player.winNumber losecount:player.loseNumber goldNumber:player.goldNumber score:player.score maxconwinnumber:player.maxConWinNumber gamecenterID:[player.GamePlayerInfo valueForKey:@"playerID"] gameCenterDisplayName:[player.GamePlayerInfo valueForKey:@"displayName"] LastBeatleatLevel:player.lastLevel isPayed:player.isPayedUser];
         
     }
     
@@ -116,7 +116,6 @@
     player.userID = [dicTemp valueForKey:@"userID"];
     player.goldNumber = [[dicTemp valueForKey:@"goldnumber"] intValue];
     player.nickName = [dicTemp valueForKey:@"nickName"];
-    player.roleModel = [[[JFRoleModel alloc] initWithType:[[dicTemp valueForKey:@"roleType"] intValue]] autorelease];
     player.winNumber = [[dicTemp valueForKey:@"wincount"] intValue];
     player.loseNumber = [[dicTemp valueForKey:@"losecount"] intValue];
     player.score = [[dicTemp valueForKey:@"score"] intValue];
@@ -318,21 +317,6 @@
 }
 
 
-+(BOOL)roleIsUnlock:(JFRoleModelType)type
-{
-    return [[SQLOperation sharedSQLOperation] queryUserRoleIDIsUnlock:[[JFLocalPlayer shareInstance] userID] roleID:type];
-}
-+(void)UpdateRoleUnck:(JFRoleModelType)type isUnlock:(int)isUnlock
-{
-    BOOL   bHasInfo = [[SQLOperation sharedSQLOperation] queryUserHasRoleIDInfo:[[JFLocalPlayer shareInstance] userID] roleID:type];
-    if (bHasInfo)
-    {
-        [[SQLOperation sharedSQLOperation] UpdateRoleLockInfo:[[JFLocalPlayer shareInstance] userID] roleID:type isUnlock:isUnlock];
-    }else
-    {
-        [[SQLOperation sharedSQLOperation] inserRoleLockInfo:[[JFLocalPlayer shareInstance] userID] roleID:type isUnlock:isUnlock];
-    }
-}
 
 
 
@@ -386,7 +370,7 @@
     {
         int lelev = [idiomModel.idiomlevelString intValue];
         //DLOG(@"idiomModel:%@",idiomModel);
-        if (lelev <= 50)
+        if (lelev <= array.count)
         {
             if (lelev == 1)
             {

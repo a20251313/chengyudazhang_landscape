@@ -15,8 +15,6 @@
 #import "JFAboutViewController.h"
 #import "JFCheckPointViewController.h"
 #import "JFRankViewController.h"
-#import "JFCreateRoleView.h"
-#import "JFRaceHallViewController.h"
 #import "JFNoticeUserView.h"
 #import "JFAudioPlayerManger.h"
 #import "JFLanchRequest.h"
@@ -25,7 +23,7 @@
 #import "DownloadHttpFileDelegate.h"
 #import "JFChargeNet.h"
 
-@interface JFLauchViewController : UIViewController<JFGameCenterMangerDelegate,JFConLoginViewDelegate,JFSetViewDelegate,JFLanchRequestDelegate,JFAlertViewDeledate,DownloadHttpFileDelegate,JFDownZipMangerDelegate,JFCreateRoleViewDelegate,JFChargeNetDelegate>
+@interface JFLauchViewController : UIViewController<JFGameCenterMangerDelegate,JFConLoginViewDelegate,JFSetViewDelegate,JFLanchRequestDelegate,JFAlertViewDeledate,DownloadHttpFileDelegate,JFDownZipMangerDelegate,JFChargeNetDelegate>
 {
     JFAudioPlayerManger     *m_playManger;
     JFLanchRequest          *m_lanchReq;

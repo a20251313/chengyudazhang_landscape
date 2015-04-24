@@ -287,7 +287,7 @@ NSString    *const      BNRChargeSuc = @"BNRChargeSuc";
     
     if ([requestString isEqualToString:@"get_recharge_channel"])
     {
-        if ([[dicInfo valueForKey:@"result"] intValue] != eSDS_Ok)
+        if ([[dicInfo valueForKey:@"result"] intValue] != 1)
         {
             if ([delegate respondsToSelector:@selector(getPayIDFail:)])
             {
@@ -315,7 +315,7 @@ NSString    *const      BNRChargeSuc = @"BNRChargeSuc";
         
     }else if ([requestString isEqualToString:@"recharge_request"])
     {
-        if ([[dicInfo valueForKey:@"result"] intValue] != eSDS_Ok)
+        if ([[dicInfo valueForKey:@"result"] intValue] != 1)
         {
             if ([delegate respondsToSelector:@selector(chargeGoldFail:)])
             {
@@ -338,7 +338,7 @@ NSString    *const      BNRChargeSuc = @"BNRChargeSuc";
         
     }else if ([requestString isEqualToString:@"get_recharge_result"])
     {
-        if ([[dicInfo valueForKey:@"result"] intValue] != eSDS_Ok)
+        if ([[dicInfo valueForKey:@"result"] intValue] != 1)
         {
             if ([delegate respondsToSelector:@selector(getServerRemainChargeFail:)])
             {

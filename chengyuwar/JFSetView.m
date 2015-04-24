@@ -40,7 +40,7 @@
     modeleffect.fprogress = [[JFAppSet shareInstance] SoundEffect];
     
     JFSetModel  *modelReset = [[JFSetModel alloc] initwithName:@"重置关卡" despcription:nil type:JFSetModelTypeNormalType];
-    JFSetModel  *modelweixin = [[JFSetModel alloc] initwithName:@"微信" despcription:@"关注微信:chengyudazhang更多活动和惊喜" type:JFSetModelTypeNormalType];
+    //JFSetModel  *modelweixin = [[JFSetModel alloc] initwithName:@"微信" despcription:@"关注微信:chengyudazhang更多活动和惊喜" type:JFSetModelTypeNormalType];
     JFSetModel  *modelgame = [[JFSetModel alloc] initwithName:@"游戏说明" despcription:@"" type:JFSetModelTypeNormalType];
     JFSetModel  *modelgood = [[JFSetModel alloc] initwithName:@"给个好评吧" despcription:@"" type:JFSetModelTypeNormalType];
     JFSetModel  *modelabout = [[JFSetModel alloc] initwithName:@"关于" despcription:@"v1.2.0" type:JFSetModelTypeNormalType];
@@ -56,7 +56,7 @@
     [modelReset release];
     [modelvolum release];
     [modeleffect release];
-    [modelweixin release];
+    // [modelweixin release];
     [modelgood release];
     [modelabout release];
     [modelgame release];

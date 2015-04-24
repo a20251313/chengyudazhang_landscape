@@ -27,25 +27,23 @@ static JFPlayAniManger  *sharePlayAniManger = nil;
 -(void)addGoldWithAni:(int)goldNumber
 {
     
-    CGSize size =  CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width);//[UIScreen mainScreen].bounds.size;
-    UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
-    
+    CGSize size =  CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);//[UIScreen mainScreen].bounds.size;
     UIView  *aniview = [JFPlayAniManger getViewAccordNumber:goldNumber imageType:JFGoldImageTypeAdd];
+
+    CGPoint frompoint = CGPointMake(size.width/2, 0);
+    CGPoint topoint = CGPointMake(size.width/2, size.height);
     
-    
-    CGPoint frompoint = (type == UIInterfaceOrientationLandscapeLeft?CGPointMake(size.height-130, size.width/2):CGPointMake(80, size.width/2));
-    CGPoint topoint = (type != UIInterfaceOrientationLandscapeLeft?CGPointMake(size.height-130, size.width/2):CGPointMake(80, size.width/2));
     CABasicAnimation *aniop = [CABasicAnimation aninopacity:TIME name:nil];
     CABasicAnimation *anitran = [CABasicAnimation aniWithPosition:TIME fromValue:frompoint tovalue:topoint];
     [anitran setValue:aniview forKey:@"view"];
     anitran.delegate = self;
     
     
-    CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
+    // CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
   //  CGFloat  fValue = M_PI_2*3;
     UIWindow  *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     aniview.center = window.center;
-    aniview.transform = CGAffineTransformMakeRotation(fValue);
+    //   aniview.transform = CGAffineTransformMakeRotation(fValue);
     [window addSubview:aniview];
     
     [aniview.layer addAnimation:aniop forKey:nil];
@@ -75,25 +73,28 @@ static JFPlayAniManger  *sharePlayAniManger = nil;
 -(void)deleteGoldWithAni:(int)goldNumber
 {
     
-    CGSize size =  CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width);//[UIScreen mainScreen].bounds.size;
-    UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
+    CGSize size =  CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);//[UIScreen mainScreen].bounds.size;
+ //   UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
     
     UIView  *aniview = [JFPlayAniManger getViewAccordNumber:goldNumber imageType:JFGoldImageTypeDelete];
     
     
-    CGPoint frompoint = (type == UIInterfaceOrientationLandscapeLeft?CGPointMake(size.height-130, size.width/2):CGPointMake(80, size.width/2));
-    CGPoint topoint = (type != UIInterfaceOrientationLandscapeLeft?CGPointMake(size.height-130, size.width/2):CGPointMake(80, size.width/2));
+//    CGPoint frompoint = (type == UIInterfaceOrientationLandscapeLeft?CGPointMake(size.height-130, size.width/2):CGPointMake(80, size.width/2));
+//    CGPoint topoint = (type != UIInterfaceOrientationLandscapeLeft?CGPointMake(size.height-130, size.width/2):CGPointMake(80, size.width/2));
+    
+    CGPoint frompoint = CGPointMake(size.width/2, size.height);
+    CGPoint topoint = CGPointMake(size.width/2, 50);
     CABasicAnimation *aniop = [CABasicAnimation aninopacity:TIME name:nil];
     CABasicAnimation *anitran = [CABasicAnimation aniWithPosition:TIME fromValue:frompoint tovalue:topoint];
     [anitran setValue:aniview forKey:@"view"];
     anitran.delegate = self;
     
     
-    CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
+    //  CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
     //  CGFloat  fValue = M_PI_2*3;
     UIWindow  *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
     aniview.center = window.center;
-    aniview.transform = CGAffineTransformMakeRotation(fValue);
+    //    aniview.transform = CGAffineTransformMakeRotation(fValue);
     [window addSubview:aniview];
     
     [aniview.layer addAnimation:aniop forKey:nil];

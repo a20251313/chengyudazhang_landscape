@@ -11,13 +11,9 @@
 #import "UtilitiesFunction.h"
 #import "JFLocalPlayer.h"
 #import "JFChargeView.h"
-#import "JFShareView.h"
-#import "JFShareManger.h"
 #import "JFCheckPointViewController.h"
 #import "JFMedalModel.h"
-#import "JFYouMIManger.h"
 #import "JFMedalRewardView.h"
-#import "JFSendAdInfo.h"
 
 
 @interface JFNormalAnswerViewController ()
@@ -83,7 +79,11 @@
         [self setPropGrayAccordRemainCount];
     }else
     {
-        [self addGoldWithAni];
+        [self cleanFreeGoldInfo:nil];
+        [self setPropGrayAccordGoldNumber];
+        [self setPropGrayAccordRemainCount];
+        [[JFLocalPlayer shareInstance] setGoldNumber:0];
+        
     }
     
 }
@@ -105,12 +105,6 @@
     m_levelView = nil;
     [m_goldView release];
     m_goldView = nil;
-    if (m_freeGiftView)
-    {
-  
-        [m_freeGiftView release];
-        m_freeGiftView = nil;
-    }
     self.avoidProp = nil;
     self.ideaShowProp = nil;
     self.trashProp = nil;
@@ -302,22 +296,7 @@
     {
         return;
     }
-    
-    if (type == ad_exhibition_typeYouMi)
-    {
-    //    [JFYouMIManger addYouMiadView:self.view frame:CGRectMake((self.view.frame.size.width-320)/2, 0, 320, 25)];
-        [JFSendAdInfo sendShowAD:[[JFLocalPlayer shareInstance] userID] adType:ad_exhibition_typeYouMi];
-    }else if(type == ad_exhibition_typeLiMei)
-    {
-        /*
-        if (!m_bannerView)
-        {
-            m_bannerView = [[immobView alloc] initWithAdUnitID:LIMEIADBANNERUNITID];
-            m_bannerView.delegate = self;
-            [m_bannerView immobViewRequest];
-        }
-        [JFSendAdInfo sendShowAD:[[JFLocalPlayer shareInstance] userID] adType:ad_exhibition_typeLiMei];*/
-    }
+ 
    
     
 }
@@ -476,7 +455,7 @@
             return;
         }
         UIImage *image = [UIImage getScreenImageWithView:self.view size:self.view.frame.size];
-        [JFShareManger shareWithMsg:@"hello" image:image];
+        // [JFShareManger shareWithMsg:@"hello" image:image];
         
     }else
     {
@@ -616,33 +595,6 @@
     DLOG(@"supergoldview:%@ m_goldView:%@",supergoldview,m_goldView);
 }
 
-
--(void)addGoldWithAni
-{
-    
-    NSDictionary   *dicInfo = [[NSUserDefaults standardUserDefaults] valueForKey:@"storeFreeGoldCount"];
-    if (dicInfo)
-    {
-        int count = [[dicInfo valueForKey:@"count"] intValue];
-        if (count >= 3)
-        {
-            return;
-        }
-    }
-    
-    if (m_freeGiftView.superview)
-    {
-        return;
-    }else if (m_freeGiftView)
-    {
-        [m_freeGiftView release];
-        m_freeGiftView = nil;
-    }
-    m_freeGiftView = [[JFFreeGiftView alloc] initWithFrame:CGRectZero];
-    m_freeGiftView.delegate = self;
-    [m_freeGiftView show];
-    
-}
 
 
 #pragma mark JFIdiomDetailViewDelegate
@@ -791,7 +743,7 @@
         return;
     }
     UIImage *image = [UIImage getScreenImageWithView:self.view size:self.view.frame.size];
-    [JFShareManger shareWithMsg:@"hello" image:image];
+    // [JFShareManger shareWithMsg:@"hello" image:image];
     DLOG(@"clickToshare:%@",sender);
 }
 -(void)clickToNextIdiom:(JFIdiomModel*)model addGoldNumber:(int)number;
@@ -1019,10 +971,7 @@
     }
     
  
-    if ([[JFLocalPlayer shareInstance] goldNumber] <= 0)
-    {
-        [self addGoldWithAni];
-    }
+
 }
 
 

@@ -67,7 +67,7 @@
 - (void)defaultInit
 {
     _overlayView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    CGRect  mainframe = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height, [[UIScreen mainScreen] bounds].size.width);
+    CGRect  mainframe = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height);
     [_overlayView setFrame:mainframe];
     [self setFrame:mainframe];
     _overlayView.backgroundColor = [UIColor colorWithRed:.16 green:.17 blue:.21 alpha:.5];

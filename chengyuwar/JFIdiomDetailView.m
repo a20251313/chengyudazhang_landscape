@@ -147,7 +147,7 @@
     NSData  *data  = [JFBlowFreshDecode getDataAccordFilePath:self.model.idiomImageName];
     if (data == nil)
     {
-        DLOG(@"self.model.idiomImageName:%@",data);
+        DLOG(@"self.model.idiomImageName:%@",self.model.idiomImageName);
     }
     UIImage *image = [UIImage imageWithData:data];
     [m_imageAnswer setImage:image];

@@ -332,7 +332,7 @@
     [JFPlayAniManger addGoldWithAni:model.productValue];
     
 }
--(void)chargeGoldFail:(eSDStatus )status
+-(void)chargeGoldFail:(int )status
 {
     [self hideProgress];
     JFAlertView *av = [[JFAlertView alloc] initWithTitle:@"提示" message:@"充值失败！" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定"];
@@ -375,7 +375,7 @@
 }
 
 
--(void)getServerRemainChargeFail:(eSDStatus)status
+-(void)getServerRemainChargeFail:(int)status
 {
     [self hideProgress];
     JFAlertView *av = [[JFAlertView alloc] initWithTitle:@"提示" message:@"充值失败！" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定"];

@@ -19,7 +19,6 @@
 @implementation JFLocalPlayer
 @synthesize conloginDays;
 @synthesize nickName;
-@synthesize roleModel;
 @synthesize winNumber;
 @synthesize loseNumber;
 @synthesize score;
@@ -72,7 +71,6 @@
         self.isPayedUser = [aDecoder decodeBoolForKey:@"isPayedUser"];
         self.conloginDays = [aDecoder decodeIntForKey:@"conloginDays"];
         self.nickName = [aDecoder decodeObjectForKey:@"nickName"];
-        self.roleModel = [aDecoder decodeObjectForKey:@"roleModel"];
         self.winNumber = [aDecoder decodeIntForKey:@"winNumber"];
         self.loseNumber = [aDecoder decodeIntForKey:@"loseNumber"];
         self.score = [aDecoder decodeIntForKey:@"score"];
@@ -95,7 +93,6 @@
     [aCoder encodeInt:self.conloginDays forKey:@"conloginDays"];
     [aCoder encodeObject:self.nickName forKey:@"nickName"];
     [aCoder encodeObject:self.userID forKey:@"userID"];
-    [aCoder encodeObject:self.roleModel forKey:@"roleModel"];
     [aCoder encodeInt:self.winNumber forKey:@"winNumber"];
     [aCoder encodeInt:self.loseNumber forKey:@"loseNumber"];
     [aCoder encodeInt:self.score forKey:@"score"];
@@ -204,8 +201,6 @@
 #endif
         self.conloginDays = 1;
         self.isPayedUser = NO;
-        self.roleModel = nil;//[[[JFRoleModel alloc] initWithType:JFRoleModelTypeshaheshang] autorelease];
-      //  [self addTestData];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getGameCenterInfo:) name:BNRGamePlayUserInfo object:nil];
     }
     return self;
@@ -271,7 +266,6 @@
     self.GamePlayerInfo = nil;
     self.goldNumber = 999999;
     self.conloginDays = 1;
-    self.roleModel = [[[JFRoleModel alloc] initWithType:JFRoleModelTypeshaheshang] autorelease];
 }
 -(void)getGameCenterInfo:(NSNotification*)note
 {
@@ -368,7 +362,6 @@
     self.userID = nil;
     self.nickName = nil;
     self.GamePlayerInfo = nil;
-    self.roleModel = nil;
     self.lanchModel = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];

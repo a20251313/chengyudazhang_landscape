@@ -11,9 +11,9 @@
 #import "JFLanchModel.h"
 @protocol JFLanchRequestDelegate <NSObject>
 
--(void)getCommoninfo:(eSDStatus)status lanchModel:(JFLanchModel*)model;
--(void)getDailySignResult:(eSDStatus)status;
--(void)getUserIDResult:(eSDStatus)status dicInfo:(NSDictionary*)dicInfo;
+-(void)getCommoninfo:(int)status lanchModel:(JFLanchModel*)model;
+-(void)getDailySignResult:(int)status;
+-(void)getUserIDResult:(int)status dicInfo:(NSDictionary*)dicInfo;
 @optional
 -(void)getNetError:(int)statusCode;
 

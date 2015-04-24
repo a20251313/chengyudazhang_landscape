@@ -134,7 +134,7 @@
     if (!m_rankView)
     {
         m_rankView = [[JFRankView alloc] initWithFrame:CGRectMake((size.width-472)/2, 25, 472, 291) withType:JFRankViewTypeWeek];
-        
+        /*
         JFLocalPlayer *localPlayer = [JFLocalPlayer shareInstance];
         if (localPlayer.roleModel  && localPlayer.roleModel.roleType > 0)
         {
@@ -142,7 +142,7 @@
         }else
         {
             m_rankView.showSelf = NO;
-        }
+        }*/
 
         m_rankView.delegate = self;
         [self.view addSubview:m_rankView];
@@ -259,9 +259,9 @@
 }
 
 
--(void)getPersionalInfo:(eSDStatus)status info:(NSDictionary*)dicInfo
+-(void)getPersionalInfo:(int)status info:(NSDictionary*)dicInfo
 {
-    if (eSDS_Ok == status)
+    if (0 == status)
     {
         //  int     roleID = [[dicInfo valueForKey:@"role_id"] intValue];
         //   NSString  *nickName = [dicInfo valueForKey:@"nick_name"];

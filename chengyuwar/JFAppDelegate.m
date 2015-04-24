@@ -11,6 +11,7 @@
 #import "JFSQLManger.h"
 #import "MyStoreObserver.h"
 #import "DomainNameParser.h"
+#import "ShareSDK/ShareSDK.h"
 //#import <Frontia/Frontia.h>
 
 
@@ -137,9 +138,27 @@
     return [[JFAppSet shareInstance] curreninterface];
 }
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+
+
+#pragma mark - 如果使用SSO（可以简单理解成客户端授权），以下方法是必要的
+- (BOOL)application:(UIApplication *)application
+      handleOpenURL:(NSURL *)url
 {
-    return YES;
+    return [ShareSDK handleOpenURL:url
+                        wxDelegate:self];
 }
+
+//iOS 4.2+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    return [ShareSDK handleOpenURL:url
+                 sourceApplication:sourceApplication
+                        annotation:annotation
+                        wxDelegate:self];
+}
+
 
 @end

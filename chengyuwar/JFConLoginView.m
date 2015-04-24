@@ -99,7 +99,7 @@
         
        
         [self addobserverForBarOrientationNotification];
-        UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
+        //  UIInterfaceOrientation type = [UIApplication sharedApplication].statusBarOrientation;
         //CGFloat  fValue = (type == UIInterfaceOrientationLandscapeLeft?M_PI_2*3:-3*M_PI_2);
         //self.transform = CGAffineTransformMakeRotation(fValue);
         self.center = window.center;

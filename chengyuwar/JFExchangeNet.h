@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "JFHttpRequsetManger.h"
 @protocol JFExchangeNetDelegate <NSObject>
--(void)getExchangeCoderesult:(eSDStatus)status addNumber:(int)addnumber;
+
+@optional
+-(void)getExchangeCoderesult:(int)status addNumber:(int)addnumber;
 -(void)networkOccurError:(NSString*)statusCode;
 @end
 

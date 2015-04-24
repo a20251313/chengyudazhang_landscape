@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8ED1FF4B-4867-4059-907B-3EBC03B3320C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>chengyuwar</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DE28E02D-C1CD-47BC-BEE7-FB9BC0C753AD</key>
+		<string>http://192.168.1.251/svn/smartPhone/iphone/ChengYuDaZhan</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>chengyuwar.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DE28E02D-C1CD-47BC-BEE7-FB9BC0C753AD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>DE28E02D-C1CD-47BC-BEE7-FB9BC0C753AD</key>
+		<string>http://192.168.1.251/svn</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://192.168.1.251/svn/smartPhone/iphone/ChengYuDaZhan/chengyuwar.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DE28E02D-C1CD-47BC-BEE7-FB9BC0C753AD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DE28E02D-C1CD-47BC-BEE7-FB9BC0C753AD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>chengyuwar</string>
+		</dict>
+	</array>
+</dict>
+</plist>

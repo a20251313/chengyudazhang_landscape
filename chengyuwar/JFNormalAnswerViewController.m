@@ -14,7 +14,7 @@
 #import "JFCheckPointViewController.h"
 #import "JFMedalModel.h"
 #import "JFMedalRewardView.h"
-
+#import "JFShareManger.h"
 
 @interface JFNormalAnswerViewController ()
 
@@ -455,6 +455,7 @@
             return;
         }
         UIImage *image = [UIImage getScreenImageWithView:self.view size:self.view.frame.size];
+        [JFShareManger shareWithMsg:@"猜猜吧" image:image viewController:self];
         // [JFShareManger shareWithMsg:@"hello" image:image];
         
     }else

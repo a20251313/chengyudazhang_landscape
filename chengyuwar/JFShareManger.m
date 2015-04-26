@@ -84,8 +84,8 @@ static JFShareManger    *shareManger = nil;
      连接新浪微博开放平台应用以使用相关功能，此应用需要引用SinaWeiboConnection.framework
      http://open.weibo.com上注册新浪微博开放平台应用，并将相关信息填写到以下字段
      **/
-    [ShareSDK connectSinaWeiboWithAppKey:@"3652079338"
-                               appSecret:@"74c42983ff6ca1899ec1a770d51cd529"
+    [ShareSDK connectSinaWeiboWithAppKey:@"1586810742"
+                               appSecret:@"fb6983ef331782d66fb43e4576066a34"
                              redirectUri:@"http://www.sns.whalecloud.com"];
     
     /**

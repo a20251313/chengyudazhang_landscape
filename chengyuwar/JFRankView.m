@@ -397,7 +397,9 @@
         [self showNetCannotUserAlert];
         return;
     }
-    UIImage *image = [UIImage getScreenImageWithView:self size:CGSizeMake([UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width)];
+    //UIImage *image = [UIImage getScreenImageWithView:self size:CGSizeMake([UIScreen mainScreen].//bounds.size.height, [UIScreen mainScreen].bounds.size.width)];
+    
+    //[JFShareManger shareWithMsg:@"猜猜吧" image:image viewController:self];
     // [JFShareManger shareWithMsg:@"hello" image:image];
     DLOG(@"clickToshare:%@",sender);
     
